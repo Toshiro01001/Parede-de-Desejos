@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Parede de Desejos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- camadas de atmosfera -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="breath" aria-hidden="true"></div>
+
+  <main class="wall">
+    <header class="cabecalho">
+      <h1 class="titulo" data-text="A Parede de Desejos">A Parede de Desejos</h1>
+      <p class="sussurro">tudo é concedido. nada é de graça.</p>
+    </header>
+
+    <!-- abas dos 7 que podem desejar -->
+    <nav class="supplicantes" aria-label="Quem deseja">
+      <ul id="abas" class="abas"></ul>
+    </nav>
+
+    <!-- o ato de desejar -->
+    <section class="rito">
+      <label class="rotulo" for="desejo">Sussurre o desejo de <span id="quemDeseja">—</span></label>
+
+      <div class="entrada">
+        <textarea
+          id="desejo"
+          class="campo"
+          rows="3"
+          placeholder="Eu desejo&#8230;"
+          spellcheck="false"
+          autocomplete="off"></textarea>
+
+        <div class="seletor" role="group" aria-label="Profundidade do preço">
+          <span class="seletor-titulo">preço</span>
+          <div id="niveis" class="niveis"></div>
+          <span id="nivelLegenda" class="nivel-legenda">selecione a profundidade</span>
+        </div>
+      </div>
+
+      <button id="oferecer" class="oferecer" type="button">Oferecer à Parede</button>
+    </section>
+
+    <!-- a sentença -->
+    <section id="veredito" class="veredito" aria-live="polite" hidden>
+      <div class="veredito-marca" aria-hidden="true"></div>
+      <p id="vereditoTexto" class="veredito-texto"></p>
+      <p id="vereditoSelo" class="veredito-selo"></p>
+    </section>
+
+    <p id="aviso" class="aviso" hidden></p>
+  </main>
+
+  <footer class="rodape">
+    <span>nº de pedidos é registrado na pedra. a pedra não esquece.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

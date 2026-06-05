@@ -5,7 +5,7 @@
 const CONFIG = {
   // >>> COLE AQUI a URL do seu Cloudflare Worker, ex.:
   //     "https://parede-de-desejos.SEU-SUBDOMINIO.workers.dev"
-  WORKER_URL: "COLE_A_URL_DO_SEU_WORKER_AQUI",
+  WORKER_URL: "https://parede-de-desejos.rodri01001.workers.dev",
 };
 
 const PERSONAGENS = [

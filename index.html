@@ -8,6 +8,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    /* botão de som */
+    .som {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 30;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: linear-gradient(180deg, #1a0708, #0c0303);
+      color: #8d8775;
+      border: 1px solid #2a2415;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: color .25s, box-shadow .3s, border-color .25s;
+    }
+    .som:hover { color: #cdc6b4; border-color: #8a161a; }
+    .som.on {
+      color: #b62327;
+      border-color: #b62327;
+      box-shadow: 0 0 14px rgba(182,35,39,.45);
+    }
+    #yt-player { position: absolute; left: -9999px; top: -9999px; width: 200px; height: 200px; }
+  </style>
 </head>
 <body>
   <!-- camadas de atmosfera -->
@@ -64,5 +91,50 @@
   </footer>
 
   <script src="app.js"></script>
+
+  <!-- música de fundo (YouTube) -->
+  <div id="yt-player" aria-hidden="true"></div>
+  <button id="som" class="som" type="button" aria-label="Ligar/desligar som" title="Som">&#9835;</button>
+  <script>
+    (function () {
+      var VIDEO_ID = "SSeJDJWCnE8";
+      var player = null, ready = false, started = false, justStarted = false;
+      var btn = document.getElementById("som");
+
+      // carrega a API do YouTube
+      window.onYouTubeIframeAPIReady = function () {
+        player = new YT.Player("yt-player", {
+          videoId: VIDEO_ID,
+          playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: VIDEO_ID, playsinline: 1 },
+          events: { onReady: function () { ready = true; } }
+        });
+      };
+      var tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(tag);
+
+      function start() {
+        if (started || !ready || !player) return;
+        started = true;
+        justStarted = true;
+        try { player.unMute(); player.setVolume(60); player.playVideo(); } catch (e) {}
+        btn.classList.add("on");
+        setTimeout(function () { justStarted = false; }, 500);
+        window.removeEventListener("pointerdown", onFirst, true);
+      }
+      function onFirst() { start(); }
+      // navegadores bloqueiam som automático: inicia no primeiro toque/clique
+      window.addEventListener("pointerdown", onFirst, true);
+
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (!started) { start(); return; }
+        if (justStarted) return;
+        var st = player && player.getPlayerState ? player.getPlayerState() : -1;
+        if (st === 1) { player.pauseVideo(); btn.classList.remove("on"); }
+        else { player.playVideo(); btn.classList.add("on"); }
+      });
+    })();
+  </script>
 </body>
 </html>

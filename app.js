@@ -55,6 +55,22 @@ const $aviso = document.getElementById("aviso");
 const workerConfigurado = () =>
   CONFIG.WORKER_URL && !CONFIG.WORKER_URL.includes("COLE_A_URL");
 
+/* ---------- chave de acesso (mora só no navegador, nunca no código) ---------- */
+const CHAVE_STORAGE = "parede:chave";
+
+function obterChave() {
+  let chave = localStorage.getItem(CHAVE_STORAGE);
+  if (!chave) {
+    chave = prompt("Sussurre a chave da Parede:");
+    if (chave) localStorage.setItem(CHAVE_STORAGE, chave.trim());
+  }
+  return chave ? chave.trim() : "";
+}
+
+function esquecerChave() {
+  localStorage.removeItem(CHAVE_STORAGE);
+}
+
 /* ---------- render das abas ---------- */
 function renderAbas() {
   $abas.innerHTML = "";
@@ -172,6 +188,12 @@ async function oferecer() {
     return;
   }
 
+  const chave = obterChave();
+  if (!chave) {
+    mostrarAviso("Sem a chave, a Parede não abre. Recarregue para sussurrá-la de novo.");
+    return;
+  }
+
   const atual = PERSONAGENS.find((p) => p.id === estado.ativo);
 
   $oferecer.disabled = true;
@@ -181,7 +203,10 @@ async function oferecer() {
   try {
     const r = await fetch(`${CONFIG.WORKER_URL}/wish`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-parede-key": chave,
+      },
       body: JSON.stringify({
         id: atual.id,
         nome: atual.nome,
@@ -189,6 +214,11 @@ async function oferecer() {
         nivel: estado.nivel,
       }),
     });
+    if (r.status === 401) {
+      esquecerChave();
+      mostrarAviso("A chave estava errada. A Parede a recusou. Recarregue e sussurre de novo.");
+      return;
+    }
     if (!r.ok) {
       const corpo = await r.text();
       throw new Error(`${r.status} — ${corpo.slice(0, 200)}`);

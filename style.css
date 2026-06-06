@@ -30,7 +30,9 @@ html, body {
   padding: 0;
   min-height: 100%;
   background:
-    radial-gradient(120% 90% at 50% 18%, #11140d 0%, var(--void-2) 38%, var(--void) 100%);
+    linear-gradient(180deg, rgba(8,5,6,.60), rgba(6,3,4,.74)),
+    url("parede.jpg") center top / cover no-repeat fixed,
+    #0a0405;
   color: var(--bone);
   font-family: var(--fonte-mao);
   font-size: 19px;
@@ -43,6 +45,23 @@ html, body {
 body { position: relative; }
 
 /* ---------- camadas de atmosfera ---------- */
+
+/* o sigilo do Eco marcado na parede, brilhando atrás de tudo */
+.marca-eco {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: url("eco-sigilo.svg") no-repeat center 38%;
+  background-size: min(82vw, 680px) auto;
+  mix-blend-mode: screen;
+  opacity: .55;
+  animation: pulsoEco 8s ease-in-out infinite;
+}
+@keyframes pulsoEco {
+  0%, 100% { opacity: .46; }
+  50%      { opacity: .62; }
+}
 
 /* grão de filme / sujeira viva */
 .grain {
@@ -393,5 +412,5 @@ body { position: relative; }
 
 /* respeita quem não tolera movimento */
 @media (prefers-reduced-motion: reduce) {
-  .grain, .breath, .titulo, .aba.ativa, .oferecer.pensando { animation: none; }
+  .grain, .breath, .titulo, .aba.ativa, .oferecer.pensando, .marca-eco { animation: none; }
 }

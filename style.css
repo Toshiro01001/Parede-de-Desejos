@@ -7,16 +7,18 @@
 :root {
   --void:      #070806;   /* o fundo, quase sem cor */
   --void-2:    #0d0f0b;
-  --bile:      #6e7a55;   /* verde-doente, texto secundário */
-  --bone:      #cdc6b4;   /* osso, texto legível */
-  --bone-dim:  #8d8775;
+  --bile:      #cdbf45;   /* amarelo secundário */
+  --bone:      #f2e24a;   /* amarelo backrooms, texto principal */
+  --bone-dim:  #b3a531;   /* amarelo apagado */
   --blood:     #8a161a;   /* sangue seco, acentos */
   --blood-lit: #b62327;
   --rot:       #2a2415;   /* ocre podre, bordas */
   --ash:       #1a1c17;
 
+  --sombra: 1.5px 1.5px 0 #000, 0 0 3px rgba(0,0,0,.7);  /* sombra preta da escrita */
+
   --fonte-mao: "Shadows Into Light Two", cursive;
-  --fonte-titulo: "Rock Salt", cursive;
+  --fonte-titulo: "Butcherman", system-ui, cursive;
 }
 
 * { box-sizing: border-box; }
@@ -33,6 +35,7 @@ html, body {
   line-height: 1.55;
   letter-spacing: .2px;
   overflow-x: hidden;
+  text-shadow: var(--sombra);
 }
 
 body { position: relative; }
@@ -94,23 +97,24 @@ body { position: relative; }
 
 .titulo {
   font-family: var(--fonte-titulo);
-  font-size: clamp(1.9rem, 7vw, 3.4rem);
+  font-size: clamp(2rem, 7.5vw, 3.6rem);
   font-weight: 400;
   color: var(--bone);
   margin: 0;
-  line-height: 1.25;
-  text-shadow: 0 0 16px rgba(138,22,26,.25), 0 1px 0 #000;
+  line-height: 1.15;
+  letter-spacing: 1px;
+  text-shadow: 4px 4px 0 #000, 2px 2px 0 #000, 0 0 22px rgba(0,0,0,.85);
   animation: tremor 2.4s steps(8) infinite;
 }
-/* duplicata fantasma do título, levemente fora de registro */
+/* duplicata fantasma do título, sombra preta deslocada */
 .titulo::after {
   content: attr(data-text);
   position: absolute;
   left: 0; right: 0;
-  color: var(--blood);
-  opacity: .22;
-  transform: translate(2px, 1px);
-  filter: blur(.4px);
+  color: #000;
+  opacity: .85;
+  transform: translate(6px, 6px);
+  filter: blur(.3px);
   z-index: -1;
 }
 @keyframes tremor {
@@ -163,7 +167,7 @@ body { position: relative; }
   letter-spacing: 2px;
   color: var(--bile);
 }
-.aba .nome { display: block; font-size: 1.15rem; line-height: 1.1; }
+.aba .nome { display: block; font-family: var(--fonte-titulo); font-size: 1.4rem; line-height: 1.1; letter-spacing: .5px; }
 .aba .contador {
   display: block;
   font-size: .8rem;

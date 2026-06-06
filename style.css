@@ -4,16 +4,7 @@
    caligrafia que treme, escuro úmido. O conforto não mora aqui.
    ========================================================= */
 
-/* fonte self-hosted: coloque o arquivo "another-danger.otf" na raiz do repositório */
-/* a versão demo não desenha letras acentuadas; por isso restringimos a fonte ao
-   alfabeto sem acento (ASCII) e deixamos ã, à, ç, é, í caírem na fonte reserva,
-   que possui os acentos. Assim Papelão, "Oferecer à Parede" e os selos não quebram. */
-@font-face {
-  font-family: "Another Danger";
-  src: url("another-danger.otf") format("opentype");
-  font-display: swap;
-  unicode-range: U+0000-007F;
-}
+/* fonte de título via Google Fonts (Metal Mania): acentos completos e licença livre */
 
 :root {
   --void:      #070806;   /* o fundo, quase sem cor */
@@ -29,7 +20,7 @@
   --sombra: 1.5px 1.5px 0 #000, 0 0 3px rgba(0,0,0,.7);  /* sombra preta da escrita */
 
   --fonte-mao: "Shadows Into Light Two", cursive;
-  --fonte-titulo: "Another Danger", "Butcherman", system-ui, cursive;
+  --fonte-titulo: "Metal Mania", "Butcherman", system-ui, cursive;
 }
 
 * { box-sizing: border-box; }

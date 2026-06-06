@@ -5,10 +5,14 @@
    ========================================================= */
 
 /* fonte self-hosted: coloque o arquivo "another-danger.otf" na raiz do repositório */
+/* a versão demo não desenha letras acentuadas; por isso restringimos a fonte ao
+   alfabeto sem acento (ASCII) e deixamos ã, à, ç, é, í caírem na fonte reserva,
+   que possui os acentos. Assim Papelão, "Oferecer à Parede" e os selos não quebram. */
 @font-face {
   font-family: "Another Danger";
   src: url("another-danger.otf") format("opentype");
   font-display: swap;
+  unicode-range: U+0000-007F;
 }
 
 :root {

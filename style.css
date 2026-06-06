@@ -4,6 +4,13 @@
    caligrafia que treme, escuro úmido. O conforto não mora aqui.
    ========================================================= */
 
+/* fonte self-hosted: coloque o arquivo "another-danger.otf" na raiz do repositório */
+@font-face {
+  font-family: "Another Danger";
+  src: url("another-danger.otf") format("opentype");
+  font-display: swap;
+}
+
 :root {
   --void:      #070806;   /* o fundo, quase sem cor */
   --void-2:    #0d0f0b;
@@ -18,7 +25,7 @@
   --sombra: 1.5px 1.5px 0 #000, 0 0 3px rgba(0,0,0,.7);  /* sombra preta da escrita */
 
   --fonte-mao: "Shadows Into Light Two", cursive;
-  --fonte-titulo: "Butcherman", system-ui, cursive;
+  --fonte-titulo: "Another Danger", "Butcherman", system-ui, cursive;
 }
 
 * { box-sizing: border-box; }

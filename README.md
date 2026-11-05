@@ -85,3 +85,7 @@ O Worker incrementa o contador do suplicante no KV e envia ao modelo: quem pediu
 ## Privacidade e custo
 
 Cada desejo é uma chamada à API (você paga por uso). Como só você usa, mantenha `ALLOWED_ORIGIN` restrito e não divulgue a URL do Worker.
+
+---
+
+Desenvolvido por Rodrigo Terroso Junior. O Claude, da Anthropic, foi usado como ferramenta durante o desenvolvimento.

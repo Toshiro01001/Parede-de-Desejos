@@ -78,11 +78,20 @@ function renderAbas() {
     const li = document.createElement("li");
     li.className = "aba" + (p.id === estado.ativo ? " ativa" : "");
     li.dataset.id = p.id;
+    li.tabIndex = 0;
+    li.setAttribute("role", "button");
+    li.setAttribute("aria-pressed", String(p.id === estado.ativo));
     li.innerHTML = `
       <span class="codigo">${p.id}</span>
       <span class="nome">${p.nome}</span>
       <span class="contador">desejos: <b>${estado.contagens[p.id]}</b></span>`;
     li.addEventListener("click", () => selecionarPersonagem(p.id));
+    li.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      selecionarPersonagem(p.id);
+      $abas.querySelector(`[data-id="${p.id}"]`).focus();
+    });
     $abas.appendChild(li);
   }
   const atual = PERSONAGENS.find((p) => p.id === estado.ativo);
@@ -102,16 +111,27 @@ function renderNiveis() {
     div.className = "nivel";
     div.dataset.n = n;
     div.textContent = n;
+    div.tabIndex = 0;
+    div.setAttribute("role", "button");
+    div.setAttribute("aria-pressed", "false");
+    div.setAttribute("aria-label", LEGENDAS[n]);
     div.addEventListener("click", () => escolherNivel(n));
+    div.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      escolherNivel(n);
+    });
     $niveis.appendChild(div);
   }
 }
 
 function escolherNivel(n) {
   estado.nivel = n;
-  [...$niveis.children].forEach((c) =>
-    c.classList.toggle("escolhido", Number(c.dataset.n) === n)
-  );
+  [...$niveis.children].forEach((c) => {
+    const escolhido = Number(c.dataset.n) === n;
+    c.classList.toggle("escolhido", escolhido);
+    c.setAttribute("aria-pressed", String(escolhido));
+  });
   $legenda.textContent = LEGENDAS[n];
 }
 
